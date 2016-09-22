@@ -15,7 +15,6 @@ taken from: https://hub.docker.com/r/sebjay/journalbeat/
 
 ```sh
 docker run --name ops-elk-journalbeat \
-  --log-driver=json-file \
   -v /var/log/journal:/var/log/journal \
   -v /etc/machine-id:/etc/machine-id \
   -e LOGSTASH_HOST=${LOGSTASH_HOST} \
