@@ -16,3 +16,13 @@ output:
     hosts: ["${LOGSTASH_HOST}:5044"]
     tls:
       certificate_authorities: ["/logstash-forwarder.crt"]
+logging:
+  level: debug
+  # enable file rotation with default configuration
+  to_files: true
+  # do not log to syslog
+  to_syslog: false
+  files:
+    path: /var/log/journalbeat
+    name: journalbeat.log
+    keepfiles: 7
