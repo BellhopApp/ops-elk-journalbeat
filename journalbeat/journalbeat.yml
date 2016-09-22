@@ -1,0 +1,16 @@
+name: journalbeat
+input:
+  seek_position: cursor
+  cursor_seek_fallback: tail
+  write_cursor_state: true
+  cursor_state_file: /jb-data/cursor-state
+  flush_cursor_secs: 3
+  clean_field_names: true
+  convert_to_numbers: false
+  move_metadata_to_field: journal
+  #default_type: journal
+output:
+  logstash:
+    hosts: ["10.136.15.61:5044"]
+    tls:
+      certificate_authorities: ["/logstash-forwarder.crt"]
