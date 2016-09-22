@@ -10,6 +10,8 @@ input:
   move_metadata_to_field: journal
   #default_type: journal
 output:
+  console:
+    pretty: true
   logstash:
     hosts: ["${LOGSTASH_HOST}:5044"]
     tls:
