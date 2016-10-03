@@ -16,6 +16,8 @@ taken from: https://hub.docker.com/r/sebjay/journalbeat/
 ```sh
 docker run --name ops-elk-journalbeat \
   --log-driver=json-file \
+  -v /swarm/logstash-forwarder.crt:/logstash-forwarder.crt \
+  -v /var/log/journalbeat:/var/log/journalbeat \
   -v /var/log/journal:/var/log/journal \
   -v /etc/machine-id:/etc/machine-id \
   -e LOGSTASH_HOST=${LOGSTASH_HOST} \
@@ -26,4 +28,11 @@ docker run --name ops-elk-journalbeat \
 
 ```sh
 docker build . -t bellhopapp/ops-elk-journalbeat
+```
+
+# build remotely (by Docker Hub)
+
+```sh
+git tag -a v1.0 -m "first build"
+git push --tags
 ```

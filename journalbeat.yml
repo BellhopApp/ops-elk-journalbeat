@@ -23,4 +23,5 @@ logging:
   files:
     path: /var/log/journalbeat
     name: journalbeat.log
+    rotateeverybytes: 10485760 # = 10MB
     keepfiles: 7
