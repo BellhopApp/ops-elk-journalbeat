@@ -11,7 +11,7 @@ input:
   #default_type: journal
 output:
   logstash:
-    hosts: ["${LOGSTASH_HOST}:5044"]
+    hosts: ["${LOGSTASH_HOST}"]
     tls:
       certificate_authorities: ["/logstash-forwarder.crt"]
 logging:
