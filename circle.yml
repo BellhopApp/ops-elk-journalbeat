@@ -1,0 +1,54 @@
+machine:
+
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+
+  services:
+    - docker
+
+  environment:
+    # image name and github repos
+    PROJECT: ops-elk-journalbeat
+    # image name
+    DOCKER_IMAGE: bellhopapp/${PROJECT}:${CIRCLE_BUILD_NUM}
+    # how to run docker in circle
+    DOCKER_EMAIL: admin@bellhop-app.com
+    DOCKER_USER: bellhopadmin
+    DOCKER_CACHE: /home/ubuntu/docker/images.${CIRCLE_NODE_INDEX}.tar
+
+dependencies:
+
+  pre:
+    # set up docker env
+    - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
+    # reload docker image cache
+    - docker images
+    - if [[ -e ${DOCKER_CACHE} ]]; then docker load -i ${DOCKER_CACHE}; fi
+    - docker images
+
+  override:
+    # build docker image for test
+    - docker build -t ${DOCKER_IMAGE} .
+    - docker images
+
+  post:
+    # save our docker image cache for next time
+    - mkdir -p `dirname ${DOCKER_CACHE}`
+    - docker save -o ${DOCKER_CACHE} $(docker images | tail -n+2 | awk '{print $3}' | tr -s '\n' ' ')
+    - ls -l  `dirname ${DOCKER_CACHE}`
+    - du -sh `dirname ${DOCKER_CACHE}`
+
+  cache_directories:
+    - "~/docker"
+
+test:
+
+  override:
+    - echo 'no tests'
+
+deployment:
+  deploy:
+    branch: master
+    commands:
+      # deploy docker image
+      - docker push ${DOCKER_IMAGE}
