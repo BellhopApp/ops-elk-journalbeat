@@ -1,3 +1,3 @@
-FROM sebjay/journalbeat:latest
+FROM mheese/journalbeat:latest
 COPY journalbeat.yml /journalbeat.yml
-CMD  /journalbeat
+CMD ["./journalbeat", "-e", "-c", "journalbeat.yml"]

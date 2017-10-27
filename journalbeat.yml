@@ -3,16 +3,17 @@ input:
   seek_position: cursor
   cursor_seek_fallback: tail
   write_cursor_state: true
-  cursor_state_file: /tmp/journalbeat-cursor-state
-  flush_cursor_secs: 3
+  cursor_state_file: /data/journalbeat-cursor-state
+  cursor_flush_period: 3s
   clean_field_names: true
   convert_to_numbers: false
   move_metadata_to_field: journal
   #default_type: journal
 output:
   logstash:
+    enabled: true
     hosts: ["${LOGSTASH_HOST}"]
-    tls:
+    ssl:
       certificate_authorities: ["/logstash-forwarder.crt"]
 logging:
   level: debug
