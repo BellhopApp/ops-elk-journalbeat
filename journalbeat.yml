@@ -1,5 +1,5 @@
 name: journalbeat
-input:
+journalbeat:
   seek_position: cursor
   cursor_seek_fallback: tail
   write_cursor_state: true
