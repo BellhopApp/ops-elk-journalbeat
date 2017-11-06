@@ -29,4 +29,4 @@ logging:
 filters:
   - drop_event:
       equals:
-        journal.systemd_unit: sshguard
+        journal.syslog_identifier: sshd
