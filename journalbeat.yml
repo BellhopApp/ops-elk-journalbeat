@@ -26,7 +26,8 @@ logging:
     name: journalbeat.log
     rotateeverybytes: 10485760 # = 10MB
     keepfiles: 7
-filters:
+processors:
   - drop_event:
-      equals:
-        journal.syslog_identifier: sshd
+      when:
+        equals:
+          journal.syslog_identifier: sshd
