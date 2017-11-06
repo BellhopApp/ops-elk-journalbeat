@@ -26,3 +26,7 @@ logging:
     name: journalbeat.log
     rotateeverybytes: 10485760 # = 10MB
     keepfiles: 7
+filters:
+  - drop_event:
+      equals:
+        journal.systemd_unit: sshguard
