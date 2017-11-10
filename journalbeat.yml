@@ -29,5 +29,6 @@ logging:
 processors:
   - drop_event:
       when:
-        equals:
-          journal.syslog_identifier: sshd
+        not:
+          regexp:
+            journal.container_name: "api-core.*"
