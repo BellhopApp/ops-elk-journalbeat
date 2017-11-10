@@ -31,4 +31,4 @@ processors:
       when:
         not:
           regexp:
-            journal.container_name: "api-core.*"
+            journal.container_name: "api-core.*|ingress-nginx.*"
