@@ -16,7 +16,7 @@ output:
     ssl:
       certificate_authorities: ["/logstash-forwarder.crt"]
 logging:
-  level: debug
+  level: info
   # enable file rotation with default configuration
   to_files: true
   # do not log to syslog
@@ -26,9 +26,3 @@ logging:
     name: journalbeat.log
     rotateeverybytes: 10485760 # = 10MB
     keepfiles: 7
-processors:
-  - drop_event:
-      when:
-        not:
-          regexp:
-            journal.container_name: "api-core.*|ingress-nginx.*"
